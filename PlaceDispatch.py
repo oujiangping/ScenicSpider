@@ -1,6 +1,7 @@
 from selenium import webdriver
 from ScenicDispatch import ScenicDispatch
 
+
 class PlaceDispatch:
     def __init__(self, country_base_url, driver):
         self.country_base_url = country_base_url
@@ -13,13 +14,15 @@ class PlaceDispatch:
         numpage = self.driver.find_element_by_css_selector("b.numpage")
         return numpage.text
 
-    def get_xie_chen_place_link(self, place_obj):
+    @staticmethod
+    def get_xie_chen_place_link(place_obj):
         dl = place_obj.find_element_by_tag_name("dl")
         dt = dl.find_element_by_tag_name("dt")
         a = dt.find_element_by_tag_name("a")
         return a.get_attribute("href")
 
-    def get_xie_chen_place_name(self, place_obj):
+    @staticmethod
+    def get_xie_chen_place_name(place_obj):
         dl = place_obj.find_element_by_tag_name("dl")
         dt = dl.find_element_by_tag_name("dt")
         a = dt.find_element_by_tag_name("a")
