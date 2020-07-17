@@ -1,6 +1,11 @@
+from selenium import webdriver
+
+from CommentDispatch import CommentDispatch
+
+
 class ScenicDispatch:
-    def __init__(self, browser, scenic_base_url):
-        self.browser = browser
+    def __init__(self, scenic_base_url):
+        self.browser = webdriver.Chrome()
         self.scenic_base_url = scenic_base_url
 
     @staticmethod
@@ -45,3 +50,6 @@ class ScenicDispatch:
                 print("address: " + self.get_xie_chen_scenic_address(scenic))
                 print("link: " + self.get_xie_chen_scenic_link(scenic))
                 print("-----------------------------")
+                comment_dispatch = CommentDispatch(base_url=self.get_xie_chen_scenic_link(scenic))
+                comment_dispatch.dispatch()
+        self.browser.quit()

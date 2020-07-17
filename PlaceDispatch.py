@@ -1,11 +1,12 @@
 from selenium import webdriver
+
 from ScenicDispatch import ScenicDispatch
 
 
 class PlaceDispatch:
-    def __init__(self, country_base_url, driver):
+    def __init__(self, country_base_url):
         self.country_base_url = country_base_url
-        self.driver = driver
+        self.driver = webdriver.Chrome()
 
     def get_xie_chen_place_page_num(self):
         country_first_page_url = self.country_base_url + "p1.html"
@@ -41,5 +42,6 @@ class PlaceDispatch:
                 place_link = self.get_xie_chen_place_link(place)
                 print("目的地名称: " + place_name)
                 print("目的地地址: " + place_link)
-                scenic_dispatch = ScenicDispatch(browser=self.driver, scenic_base_url=place_link.replace("place", "sight"))
+                scenic_dispatch = ScenicDispatch(scenic_base_url=place_link.replace("place", "sight"))
                 scenic_dispatch.dispatch()
+        self.driver.quit()
