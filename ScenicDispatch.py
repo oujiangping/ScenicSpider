@@ -5,7 +5,9 @@ from CommentDispatch import CommentDispatch
 
 class ScenicDispatch:
     def __init__(self, scenic_base_url):
-        self.browser = webdriver.Chrome()
+        option = webdriver.ChromeOptions()
+        option.add_argument('headless')  # 静默模式
+        self.browser = webdriver.Chrome(options=option)
         self.scenic_base_url = scenic_base_url
 
     @staticmethod

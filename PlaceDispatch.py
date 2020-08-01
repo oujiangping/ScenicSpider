@@ -6,7 +6,9 @@ from ScenicDispatch import ScenicDispatch
 class PlaceDispatch:
     def __init__(self, country_base_url):
         self.country_base_url = country_base_url
-        self.driver = webdriver.Chrome()
+        option = webdriver.ChromeOptions()
+        option.add_argument('headless')  # 静默模式
+        self.driver = webdriver.Chrome(options=option)
 
     def get_xie_chen_place_page_num(self):
         country_first_page_url = self.country_base_url + "p1.html"

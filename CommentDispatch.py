@@ -9,7 +9,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 class CommentDispatch:
     def __init__(self, base_url, timeout=5):
-        self.browser = webdriver.Chrome()
+        option = webdriver.ChromeOptions()
+        option.add_argument('headless')  # 静默模式
+        self.browser = webdriver.Chrome(options=option)
         self.base_url = base_url
         self.current_page = 1
         self.timeout = timeout
