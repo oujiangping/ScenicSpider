@@ -42,14 +42,18 @@ class ScenicDispatch:
         print("景区总页面数量： " + str(total_page))
 
         for i in range(1, total_page + 1):
-            page_url = self.scenic_base_url.replace(".html", "/s0-p" + str(i) + ".html")
-            self.browser.get(page_url)
-            scenic_list = self.browser.find_elements_by_css_selector('div.list_mod2')
-            for scenic in scenic_list:
-                print("name: " + self.get_xie_chen_scenic_name(scenic))
-                print("address: " + self.get_xie_chen_scenic_address(scenic))
-                print("link: " + self.get_xie_chen_scenic_link(scenic))
-                print("-----------------------------")
-                comment_dispatch = CommentDispatch(base_url=self.get_xie_chen_scenic_link(scenic))
-                comment_dispatch.dispatch()
+            try:
+                page_url = self.scenic_base_url.replace(".html", "/s0-p" + str(i) + ".html")
+                self.browser.get(page_url)
+                scenic_list = self.browser.find_elements_by_css_selector('div.list_mod2')
+                for scenic in scenic_list:
+                    print("name: " + self.get_xie_chen_scenic_name(scenic))
+                    print("address: " + self.get_xie_chen_scenic_address(scenic))
+                    link = self.get_xie_chen_scenic_link(scenic)
+                    print("link: " + link)
+                    print("-----------------------------")
+                    comment_dispatch = CommentDispatch(base_url=link)
+                    comment_dispatch.dispatch()
+            except Exception as e:
+                print(e)
         self.browser.quit()
