@@ -1,6 +1,6 @@
 from selenium import webdriver
 
-from CommentDispatch import CommentDispatch
+from TxtDispatch import TxtDispatch
 
 
 class ScenicDispatch:
@@ -54,7 +54,7 @@ class ScenicDispatch:
                     link = self.get_xie_chen_scenic_link(scenic)
                     print("link: " + link)
                     print("-----------------------------")
-                    comment_dispatch = CommentDispatch(base_url=link)
+                    comment_dispatch = TxtDispatch(base_url=link)
                     comment_dispatch.dispatch()
             except Exception as e:
                 print(e)
