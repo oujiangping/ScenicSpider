@@ -1,3 +1,4 @@
+#-*-coding:utf-8-*-
 from selenium import webdriver
 
 from ScenicDispatch import ScenicDispatch
