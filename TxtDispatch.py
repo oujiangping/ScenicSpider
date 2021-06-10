@@ -50,7 +50,7 @@ class TxtDispatch:
                 score = average_score.text[:1]
                 comment = comment_info.text
                 if score.isdigit():
-                    self.txt += score + '\t' + comment + '\n'
+                    self.txt = self.text + score + '\t' + comment + '\n'
         return comment_list
 
     def dispatch(self):
