@@ -17,6 +17,7 @@ class TxtDispatch:
         self.current_page = 1
         self.timeout = timeout
         self.txt = None
+        self.text = ''
         time.sleep(1)
 
     def click_next_comment_page(self):
@@ -46,18 +47,10 @@ class TxtDispatch:
             print("评价： " + comment_info.text)
             print("评分： " + average_score.text)
             if len(average_score.text) > 0:
-                if self.txt is None:
-                    if not os.path.exists('txt'):
-                        os.makedirs('txt')
-                    self.wait_element_by_css("span.districtName")
-                    district_name_item = self.browser.find_element_by_css_selector("span.districtName")
-                    district_name = district_name_item.text
-                    self.txt = open('txt/' + district_name + '.txt', mode='w', encoding='utf-8')
                 score = average_score.text[:1]
                 comment = comment_info.text
                 if score.isdigit():
-                    if self.txt is not None:
-                        self.txt.write(score + '\t' + comment + '\n')
+                    self.txt += score + '\t' + comment + '\n'
         return comment_list
 
     def dispatch(self):
@@ -72,5 +65,12 @@ class TxtDispatch:
         except Exception as e:
             print(e)
         self.browser.quit()
-        if self.txt is not None:
+        if self.txt is None:
+            if not os.path.exists('txt'):
+                os.makedirs('txt')
+            self.wait_element_by_css("span.districtName")
+            district_name_item = self.browser.find_element_by_css_selector("span.districtName")
+            district_name = district_name_item.text
+            self.txt = open('txt/' + district_name + '.txt', mode='w', encoding='utf-8')
+            self.txt.write(self.text)
             self.txt.close()
