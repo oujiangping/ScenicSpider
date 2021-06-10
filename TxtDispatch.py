@@ -65,7 +65,6 @@ class TxtDispatch:
             while len(comment_list) > 0 and self.click_next_comment_page():
                 try:
                     comment_list = self.get_comment_list()
-                    break
                 except Exception as e:
                     print(e)
         except Exception as e:
