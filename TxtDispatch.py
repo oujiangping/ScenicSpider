@@ -74,4 +74,4 @@ class TxtDispatch:
             self.txt = open('txt/' + district_name + '.txt', mode='w', encoding='utf-8')
             self.txt.write(self.text)
             self.txt.close()
-            self.text = None
+            self.text = ''
