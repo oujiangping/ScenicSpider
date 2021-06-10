@@ -28,7 +28,7 @@ class TxtDispatch:
             page_bt = self.browser.find_element_by_css_selector(page_bt_css)
             self.browser.execute_script("arguments[0].scrollIntoView(false);", page_bt)
             page_bt.click()
-            time.sleep(0.5)
+            time.sleep(0.01)
             return True
         except Exception as e:
             print(e)
@@ -55,7 +55,7 @@ class TxtDispatch:
                 score = average_score.text[:1]
                 comment = comment_info.text
                 if score.isdigit():
-                    self.txt = self.text + score + '\t' + comment + '\n'
+                    self.text = self.text + score + '\t' + comment + '\n'
         return comment_list
 
     def dispatch(self):
@@ -65,16 +65,16 @@ class TxtDispatch:
             while len(comment_list) > 0 and self.click_next_comment_page():
                 try:
                     comment_list = self.get_comment_list()
+                    break
                 except Exception as e:
                     print(e)
         except Exception as e:
             print(e)
         self.browser.quit()
-        if self.txt is None:
-            if not os.path.exists('txt'):
-                os.makedirs('txt')
-            if self.districtName is not None:
-                self.txt = open('txt/' + self.districtName + '.txt', mode='w', encoding='utf-8')
-                self.txt.write(self.text)
-                self.txt.close()
-                self.text = ''
+        if not os.path.exists('txt'):
+            os.makedirs('txt')
+        if self.districtName is not None:
+            self.txt = open('txt/' + self.districtName + '.txt', mode='w', encoding='utf-8')
+            self.txt.write(self.text)
+            self.txt.close()
+            self.text = ''
